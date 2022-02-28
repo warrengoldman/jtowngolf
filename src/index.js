@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { TeeTimeTableContextProvider } from './store/tee-time-table';
 ReactDOM.render(
   <React.StrictMode>
+    <TeeTimeTableContextProvider>
     <App />
+    </TeeTimeTableContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
