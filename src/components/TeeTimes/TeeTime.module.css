@@ -1,8 +1,10 @@
 .teetime {
   display: flex;
   justify-content: space-between;
-  margin: 1rem;
-  float: left;
+  margin-top: 1em;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 8rem;
 }
 
 .teetime h3 {
@@ -18,4 +20,13 @@
   font-weight: bold;
   color: #ad5502;
   font-size: 1.25rem;
+}
+.golfername {
+  display: block;
+  font-size: 1.17em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
 }

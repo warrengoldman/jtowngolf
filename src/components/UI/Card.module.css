@@ -7,3 +7,11 @@
   height: auto;
   min-height: 150px;
 }
+.card h3 {
+  color: green;
+  text-align: center;
+}
+.card h4 {
+  color: #ad5502;
+  text-align: center;
+}
