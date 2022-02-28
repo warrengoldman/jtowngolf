@@ -1,7 +1,7 @@
 import classes from './TeeTimes.module.css'
 import TeeTime from './TeeTime';
 import Card from '../UI/Card';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 const DUMMY_MEALS = [
   {
     id: "m1",
@@ -53,6 +53,7 @@ const DUMMY_MEALS = [
   },
 ];
 const TeeTimes = () => {
+  console.log('teetimes');
   const [teeTimes, setTeeTimes] = useState(DUMMY_MEALS);
   // const fetchMovies = () => {
   //   fetch("https://react-e2481-default-rtdb.firebaseio.com/movies.json") 
@@ -81,13 +82,30 @@ const TeeTimes = () => {
   // useEffect(() => {
   //   fetchMovies();
   // }, []);
-  const teeTimeList = teeTimes.map((teeTime) => <TeeTime key={teeTime.id} teeTime={teeTime} />);
+  const teeTimeList = teeTimes.map((teeTime) => (<TeeTime key={teeTime.id} teeTime={teeTime}/>));
+  const teeGroup1 = renderTeeTimes(teeTimeList, 0, 4);
+  const teeGroup2 = renderTeeTimes(teeTimeList, 4, 8);
+  const teeGroup3 = renderTeeTimes(teeTimeList, 8, 12);
   return (
-    <section className={classes.teetimes}>
-      <Card>
-        <ul>{teeTimeList}</ul>
-      </Card>
-    </section>
+    <React.Fragment>
+    <Card>
+      <ul>
+      {teeGroup1}
+      </ul>
+    </Card>
+    <Card>
+      <ul>
+      {teeGroup2}
+      </ul>
+    </Card>
+    </React.Fragment>
   );
 };
+function renderTeeTimes(teeTimes, startAt, upTo) {
+  const teeTimeList = [];
+  for (let i = startAt; i < upTo && i < teeTimes.length;i++) {
+      teeTimeList.push(teeTimes[i]);
+  }
+  return teeTimeList;
+}
 export default TeeTimes;
