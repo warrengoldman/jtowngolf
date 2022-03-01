@@ -54,29 +54,31 @@ const TeeTimes = (props) => {
         return response.json();
       })
       .then((jsonData) => {
-        const keys = Object.keys(jsonData);
-        const tees = keys.map((key) => {
-          const tee = jsonData[key];
-          if (tee.date === teeTimeDate.toString()) {
-            return {
-              key: key,
-              id: tee.id,
-              name: tee.name,
-              time: tee.time,
-              teeNbr: tee.teeNbr,
-              date: tee.date,
-              email: tee.email,
-            };
+        if (jsonData) {
+          const keys = Object.keys(jsonData);
+          const tees = keys.map((key) => {
+            const tee = jsonData[key];
+            if (tee.date === teeTimeDate.toString()) {
+              return {
+                key: key,
+                id: tee.id,
+                name: tee.name,
+                time: tee.time,
+                teeNbr: tee.teeNbr,
+                date: tee.date,
+                email: tee.email,
+              };
+            }
+            return null;
+          });
+          const teesInDb = tees.filter((tee) => {
+            return tee != null;
+          });
+          if (setGolfersFunc) {
+            setGolfersFunc(teesInDb);
           }
-          return null;
-        });
-        const teesInDb = tees.filter((tee) => {
-          return tee != null;
-        });
-        if (setGolfersFunc) {
-          setGolfersFunc(teesInDb);
+          return teesInDb;
         }
-        return teesInDb;
       })
       .catch((error) => {
         console.log("we got an error", error);
