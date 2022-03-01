@@ -24,9 +24,9 @@ function App(props) {
   return (
     <Card>
       <NewTeeTimeForm teeTimeDate={comingThursday} teeTimeTable={ctx.teeTimeTable} />
-      <h3>Golf Tee Time(s) For {comingThursday}</h3>
+      <h3>Golf Tee Time(s) And Players For {comingThursday}</h3>
       <TeeTimes key="1" teeTimeDate={comingThursday} />
-      <h4>Previous Golf Tee Time(s) For {previousThursday}</h4>
+      <h4>Previous Golf Tee Time(s) And Players For {previousThursday}</h4>
       <TeeTimes key="2" teeTimeDate={previousThursday} />
     </Card>
   );

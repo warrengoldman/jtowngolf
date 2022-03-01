@@ -5,7 +5,7 @@ export function addTeeTime(email, name, teeNbr, date, time) {
   if (!teeNbr) {
     teeNbr = 1;
   }
-  if (name && email) {
+  if (name) {
     const teeTime = {
       id: Math.random().toString(),
       email: email,

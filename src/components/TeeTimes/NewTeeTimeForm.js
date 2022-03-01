@@ -6,6 +6,7 @@ import { addTeeTime } from '../Util/addteetime';
 import { useContext } from "react";
 import TeeTimeTableContext from "../../store/tee-time-table";
 import { useState } from 'react';
+import classes from './NewTeeTimeForm.module.css';
 const NewTeeTimeForm = (props) => {
   const ctx = useContext(TeeTimeTableContext);
   const date = props.teeTimeDate;
@@ -14,17 +15,6 @@ const NewTeeTimeForm = (props) => {
   const teeTime2 = teeTimeTable[2];
   const teeTime3 = teeTimeTable[3];
   const teeTime4 = teeTimeTable[4];
-  const submitHandler = (event) => {
-    const teeTimeValue = event.target.teeTime.value.split('-');
-    const teeNbr = teeTimeValue[0];
-    const time = teeTimeValue[1];
-    const name = event.target.golfer.value;
-    let email = ctx.golferEmailsMap[name];
-    if (!email) {
-      email = '';
-    }
-    addTeeTime(email, name, teeNbr, date, time);
-  }
   const [state1, setState1] = useState(false);
   const radioHandler1 = () => {
     if (!state1) {
@@ -61,6 +51,24 @@ const NewTeeTimeForm = (props) => {
     }
     setState1(!state4);
   };
+  const [isValid, setValid] = useState(true);
+  const submitHandler = (event) => {
+    const teeTimeValue = event.target.teeTime.value.split('-');
+    const teeNbr = teeTimeValue[0];
+    const time = teeTimeValue[1];
+    const name = event.target.golfer.value;
+    let email = ctx.golferEmailsMap[name];
+    if (!email) {
+      email = '';
+    }
+    if (name && time) {
+      addTeeTime(email, name, teeNbr, date, time);
+      setValid(true);
+    } else {
+      setValid(false);
+      event.preventDefault();
+    }
+  }
   return (
     <Card>
       <form onSubmit={submitHandler}>
@@ -72,6 +80,7 @@ const NewTeeTimeForm = (props) => {
         {teeTime4 && <Radio id={teeTime4} checked={state4} onChange={radioHandler4} name="teeTime" value={`4-${teeTime4}`} text={teeTime4}/>}
         <label>Your name:  </label><input id='golfer' name='golfer' />
         <Button>Add Yourself</Button>
+        <p className={classes.error}>{`${!isValid ? 'Please select a time and enter a name' : ''}`}</p>
       </form>
     </Card>
   );
