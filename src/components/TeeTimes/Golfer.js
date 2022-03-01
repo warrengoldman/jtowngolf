@@ -4,7 +4,6 @@ const Golfer = (props) => {
   const golfer = props.golfer;
   const removeGolferFromTeeTime = () => {
     const deleteUrl = 'https://jtowngolf-default-rtdb.firebaseio.com/teetimes/' + golfer.key + '.json';
-    console.log(deleteUrl);
     removeGolfer(deleteUrl);
     const reload = () => {
       window.location.reload();
