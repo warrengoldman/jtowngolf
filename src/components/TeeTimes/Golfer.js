@@ -6,7 +6,10 @@ const Golfer = (props) => {
     const deleteUrl = 'https://jtowngolf-default-rtdb.firebaseio.com/teetimes/' + golfer.key + '.json';
     console.log(deleteUrl);
     removeGolfer(deleteUrl);
-    setTimeout(window.location.reload(false), 1000);
+    const reload = () => {
+      window.location.reload();
+    }
+    setTimeout(reload, 1000);
   }
   return <span className={classes.golfer} onClick={removeGolferFromTeeTime} title="Click to remove">{golfer.name}</span>
 };
