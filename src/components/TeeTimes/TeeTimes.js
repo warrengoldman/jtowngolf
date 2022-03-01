@@ -1,4 +1,3 @@
-import classes from "./TeeTimes.module.css";
 import TeeTime from "./TeeTime";
 import Card from "../UI/Card";
 import React, { useState, useEffect } from "react";
@@ -6,65 +5,95 @@ const getTeeTimes = (golfers) => {
   if (!golfers) {
     return;
   }
-  const teeTimeInfo = [];
-  if (golfers.length <= 5) {
-    teeTimeInfo.push(golfers.length);
-  } else if (golfers.length < 11) {
-    let nbrGolfersTee1 = 3;
-    let nbrGolfersTee2 = 3;
-    if (golfers.length === 7) {
-      nbrGolfersTee2 = 4;
-    }
-    if (golfers.length === 8 || golfers.length === 9) {
-      nbrGolfersTee1 = 4;
-      nbrGolfersTee2 = 4;
-      if (golfers.length === 9) {
-        nbrGolfersTee2 = 5;
-      }
-    } else if (golfers.length === 10) {
-      nbrGolfersTee1 = 5;
-      nbrGolfersTee2 = 5;
-    }
-    teeTimeInfo.push(nbrGolfersTee1);
-    teeTimeInfo.push(nbrGolfersTee2);
-  } else if (golfers.length < 16) {
-    let nbrGolfersTee1 = 4;
-    let nbrGolfersTee2 = 4;
-    let nbrGolfersTee3 = 3;
-    if (golfers.length === 12) {
-      nbrGolfersTee3 = 4;
-    }
-    if (golfers.length === 13 || golfers.length === 14) {
-      nbrGolfersTee3 = 5;
-      if (golfers.length === 14) {
-        nbrGolfersTee2 = 5;
-      }
-    } else if (golfers.length === 15) {
-      nbrGolfersTee1 = 5;
-      nbrGolfersTee2 = 5;
-      nbrGolfersTee3 = 5;
-    }
-    teeTimeInfo.push(nbrGolfersTee1);
-    teeTimeInfo.push(nbrGolfersTee2);
-    teeTimeInfo.push(nbrGolfersTee3);
-  }
-  let golferCount = 0;
-  const golfersByTeeTime = [];
-  teeTimeInfo.forEach((nbrGolfers) => {
-    golfersByTeeTime.push(golfers.slice(golferCount, golferCount + nbrGolfers));
-    golferCount = golferCount + nbrGolfers;
-  });
-  const nonNullGolfers = golfersByTeeTime.filter((golfersArray) => {
-    return golfersArray[0] != null;
-  });
+  const golfersTee1 = golfers.filter((golfer) => golfer.teeNbr === "1");
+  const golfersTee2 = golfers.filter((golfer) => golfer.teeNbr === "2");
+  const golfersTee3 = golfers.filter((golfer) => golfer.teeNbr === "3");
+  const golfersTee4 = golfers.filter((golfer) => golfer.teeNbr === "4");
+  const teeTimes = [];
   let teeNbr = 1;
-  const retVal = nonNullGolfers.map((golfersArray) => (
-    <TeeTime key={teeNbr} golfers={golfersArray} teeNbr={teeNbr++} />
-  ));
-  if (retVal.length !== 0) {
-    return retVal;
+  if (golfersTee1.length > 0) {
+    teeTimes.push(
+      <TeeTime key={teeNbr} golfers={golfersTee1} teeNbr={teeNbr} />
+    );
   }
-  return null;
+  if (golfersTee2.length > 0) {
+    teeNbr = 2;
+    teeTimes.push(
+      <TeeTime key={teeNbr} golfers={golfersTee2} teeNbr={teeNbr} />
+    );
+  }
+  if (golfersTee3.length > 0) {
+    teeNbr = 3;
+    teeTimes.push(
+      <TeeTime key={teeNbr} golfers={golfersTee3} teeNbr={teeNbr} />
+    );
+  }
+  if (golfersTee4.length > 0) {
+    teeNbr = 4;
+    teeTimes.push(
+      <TeeTime key={teeNbr} golfers={golfersTee4} teeNbr={teeNbr} />
+    );
+  }
+  return teeTimes;
+  // const teeTimeInfo = [];
+  // if (golfers.length <= 5) {
+  //   teeTimeInfo.push(golfers.length);
+  // } else if (golfers.length < 11) {
+  //   let nbrGolfersTee1 = 3;
+  //   let nbrGolfersTee2 = 3;
+  //   if (golfers.length === 7) {
+  //     nbrGolfersTee2 = 4;
+  //   }
+  //   if (golfers.length === 8 || golfers.length === 9) {
+  //     nbrGolfersTee1 = 4;
+  //     nbrGolfersTee2 = 4;
+  //     if (golfers.length === 9) {
+  //       nbrGolfersTee2 = 5;
+  //     }
+  //   } else if (golfers.length === 10) {
+  //     nbrGolfersTee1 = 5;
+  //     nbrGolfersTee2 = 5;
+  //   }
+  //   teeTimeInfo.push(nbrGolfersTee1);
+  //   teeTimeInfo.push(nbrGolfersTee2);
+  // } else if (golfers.length < 16) {
+  //   let nbrGolfersTee1 = 4;
+  //   let nbrGolfersTee2 = 4;
+  //   let nbrGolfersTee3 = 3;
+  //   if (golfers.length === 12) {
+  //     nbrGolfersTee3 = 4;
+  //   }
+  //   if (golfers.length === 13 || golfers.length === 14) {
+  //     nbrGolfersTee3 = 5;
+  //     if (golfers.length === 14) {
+  //       nbrGolfersTee2 = 5;
+  //     }
+  //   } else if (golfers.length === 15) {
+  //     nbrGolfersTee1 = 5;
+  //     nbrGolfersTee2 = 5;
+  //     nbrGolfersTee3 = 5;
+  //   }
+  //   teeTimeInfo.push(nbrGolfersTee1);
+  //   teeTimeInfo.push(nbrGolfersTee2);
+  //   teeTimeInfo.push(nbrGolfersTee3);
+  // }
+  // let golferCount = 0;
+  // const golfersByTeeTime = [];
+  // teeTimeInfo.forEach((nbrGolfers) => {
+  //   golfersByTeeTime.push(golfers.slice(golferCount, golferCount + nbrGolfers));
+  //   golferCount = golferCount + nbrGolfers;
+  // });
+  // const nonNullGolfers = golfersByTeeTime.filter((golfersArray) => {
+  //   return golfersArray[0] != null;
+  // });
+  // let teeNbr = 1;
+  // const retVal = nonNullGolfers.map((golfersArray) => (
+  //   <TeeTime key={teeNbr} golfers={golfersArray} teeNbr={teeNbr++} />
+  // ));
+  // if (retVal.length !== 0) {
+  //   return retVal;
+  // }
+  // return null;
 };
 const TeeTimes = (props) => {
   const teeTimeDate = props.teeTimeDate;
@@ -99,7 +128,9 @@ const TeeTimes = (props) => {
           }
           return null;
         });
-        const teesInDb = tees.filter(tee => { return tee != null });
+        const teesInDb = tees.filter((tee) => {
+          return tee != null;
+        });
         setGolfers(teesInDb);
       })
       .catch((error) => {
