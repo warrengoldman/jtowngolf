@@ -3,7 +3,7 @@ import Card from "./components/UI/Card";
 import TeeTimes from "./components/TeeTimes/TeeTimes";
 import { useContext } from "react";
 import TeeTimeTableContext from "./store/tee-time-table";
-
+import { getFormattedPreviousThursdayDate, getFormattedNextThursdayDate } from './components/Util/utils';
 function addTeeTime(email, name, teeNbr, date, time) {
   const teeTime = {
     id: Math.random().toString(),
@@ -14,48 +14,25 @@ function addTeeTime(email, name, teeNbr, date, time) {
     time: time,
   };
   const postAttributes = {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(teeTime),
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
   };
   async function addTeeTimeInner(postAttributes) {
-    await fetch('https://jtowngolf-default-rtdb.firebaseio.com/teetimes.json', postAttributes);
+    console.log(postAttributes.body);
+    await fetch(
+      "https://jtowngolf-default-rtdb.firebaseio.com/teetimes.json",
+      postAttributes
+    );
   }
   addTeeTimeInner(postAttributes);
 }
-function formatDate(d) {
-  let month = "" + (d.getMonth() + 1);
-  let day = "" + d.getDate();
-  let year = d.getFullYear();
-  if (month.length < 2) month = "0" + month;
-  if (day.length < 2) day = "0" + day;
-
-  return [month, day, year].join("-");
-}
-function getPreviousThursdayDate() {
-  let date = new Date();
-  let difference = date.getDay() - 4;
-  if (difference < 0) {
-    difference = 7 - -1 * difference;
-  }
-  date.setDate(date.getDate() - difference);
-  return date;
-}
-function getNextThursdayDate() {
-  let date = new Date();
-  let difference = 4 - date.getDay();
-  if (difference < 0) {
-    difference = 7 + difference;
-  }
-  date.setDate(date.getDate() + difference);
-  return date;
-}
 function App(props) {
   const ctx = useContext(TeeTimeTableContext);
-  const comingThursday = formatDate(getNextThursdayDate());
+  const comingThursday = getFormattedNextThursdayDate();
   const urlParams = new URLSearchParams(window.location.search);
   let email = urlParams.get("email");
   let name = urlParams.get("name");
@@ -72,7 +49,7 @@ function App(props) {
   if (name && email) {
     addTeeTime(email, name, teeNbr, comingThursday, ctx.teeTimeTable[teeNbr]);
   }
-  const previousThursday = formatDate(getPreviousThursdayDate());
+  const previousThursday = getFormattedPreviousThursdayDate();
   return (
     <Card>
       <h3>Golf Tee Time(s) For {comingThursday}</h3>
