@@ -1,10 +1,11 @@
 import classes from "./TeeTime.module.css";
 import { useContext } from 'react';
 import TeeTimeTableContext from '../../store/tee-time-table';
+import Golfer from './Golfer';
 const TeeTime = (props) => {
   const ctx = useContext(TeeTimeTableContext);
   const teeTime = ctx.teeTimeTable[props.teeNbr];
-  const names = props.golfers.map(golfer => golfer.name).join(", ");
+  const names = props.golfers.map(golfer => <Golfer key={golfer.key} golfer={golfer} />);
   return (
     <li className={classes.teetime}>
       <div>

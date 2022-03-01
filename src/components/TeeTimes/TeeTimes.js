@@ -48,7 +48,7 @@ const TeeTimes = (props) => {
       </Card>
     );
   }
-  const fetchTeeTimes = () => {
+  const fetchTeeTimes = (setGolfersFunc) => {
     fetch("https://jtowngolf-default-rtdb.firebaseio.com/teetimes.json")
       .then((response) => {
         return response.json();
@@ -59,6 +59,7 @@ const TeeTimes = (props) => {
           const tee = jsonData[key];
           if (tee.date === teeTimeDate.toString()) {
             return {
+              key: key,
               id: tee.id,
               name: tee.name,
               time: tee.time,
@@ -72,14 +73,17 @@ const TeeTimes = (props) => {
         const teesInDb = tees.filter((tee) => {
           return tee != null;
         });
-        setGolfers(teesInDb);
+        if (setGolfersFunc) {
+          setGolfersFunc(teesInDb);
+        }
+        return teesInDb;
       })
       .catch((error) => {
         console.log("we got an error", error);
       });
   };
   useEffect(() => {
-    fetchTeeTimes();
+    fetchTeeTimes(setGolfers);
   }, []);
   return <React.Fragment>{teeTimesUl}</React.Fragment>;
 };

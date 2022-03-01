@@ -31,3 +31,19 @@ export function addTeeTime(email, name, teeNbr, date, time) {
     addTeeTimeInner(postAttributes);
   }
 }
+export function removeGolfer(url) {
+  const deleteAttributes = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  async function removeGolferInner(url, deleteAttributes) {
+    await fetch(
+      url,
+      deleteAttributes
+    );
+  }
+  removeGolferInner(url, deleteAttributes);
+}
