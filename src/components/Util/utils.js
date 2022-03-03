@@ -1,7 +1,7 @@
 export function getFormattedPreviousThursdayDate() {
   let date = new Date();
   let difference = date.getDay() - 4;
-  if (difference < 0) {
+  if (difference <= 0) {
     difference = 7 - -1 * difference;
   }
   date.setDate(date.getDate() - difference);
