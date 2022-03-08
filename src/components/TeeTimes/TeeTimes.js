@@ -1,6 +1,6 @@
-import TeeTime from "./TeeTime";
+import React, { useEffect, useState } from "react";
 import Card from "../UI/Card";
-import React, { useState, useEffect } from "react";
+import TeeTime from "./TeeTime";
 const getTeeTimes = (golfers) => {
   if (!golfers) {
     return;

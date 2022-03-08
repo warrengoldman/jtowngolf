@@ -2,7 +2,7 @@ import "./App.css";
 import NewTeeTimeForm from "./components/TeeTimes/NewTeeTimeForm";
 import TeeTimes from "./components/TeeTimes/TeeTimes";
 import Card from "./components/UI/Card";
-import { addTeeTime, getTeeTimeTable } from './components/Util/addteetime';
+import { addTeeTime, getTeeTimeTable, removeTeeOffTimes, updateTeeTimes } from './components/Util/addteetime';
 import { getFormattedNextThursdayDate, getFormattedPreviousThursdayDate } from './components/Util/utils';
 function App(props) {
   const comingThursday = getFormattedNextThursdayDate();
@@ -19,6 +19,11 @@ function App(props) {
   const teeNbr = urlParams.get("teeNbr");
   const teeTimeTable = getTeeTimeTable();
   addTeeTime(email, name, teeNbr, comingThursday, teeTimeTable[teeNbr]);
+  const teeTimes = urlParams.get("teetimes");
+  updateTeeTimes(teeTimes);
+  if (urlParams.get("removeteetimes")) {
+    removeTeeOffTimes();
+  }
   return (
     <Card>
       <NewTeeTimeForm teeTimeDate={comingThursday} teeTimeTable={teeTimeTable} />

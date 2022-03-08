@@ -8,7 +8,7 @@ const TeeTime = (props) => {
     <li className={classes.teetime}>
       <div>
         <div className={classes.time}>
-          Tee time: {teeTime} Number:{props.golfers.length}
+          Tee time: {teeTime} Number:{props.teeNbr}
         </div>
         <p className={classes.golfername}>{names}</p>
       </div>
