@@ -1,13 +1,10 @@
 import "./App.css";
-import Card from "./components/UI/Card";
-import TeeTimes from "./components/TeeTimes/TeeTimes";
 import NewTeeTimeForm from "./components/TeeTimes/NewTeeTimeForm";
-import { useContext } from "react";
-import TeeTimeTableContext from "./store/tee-time-table";
-import { getFormattedPreviousThursdayDate, getFormattedNextThursdayDate } from './components/Util/utils';
-import { addTeeTime } from './components/Util/addteetime';
+import TeeTimes from "./components/TeeTimes/TeeTimes";
+import Card from "./components/UI/Card";
+import { addTeeTime, getTeeTimeTable } from './components/Util/addteetime';
+import { getFormattedNextThursdayDate, getFormattedPreviousThursdayDate } from './components/Util/utils';
 function App(props) {
-  const ctx = useContext(TeeTimeTableContext);
   const comingThursday = getFormattedNextThursdayDate();
   const previousThursday = getFormattedPreviousThursdayDate();
   const urlParams = new URLSearchParams(window.location.search);
@@ -20,10 +17,11 @@ function App(props) {
     email = name;
   }
   const teeNbr = urlParams.get("teeNbr");
-  addTeeTime(email, name, teeNbr, comingThursday, ctx.teeTimeTable[teeNbr]);
+  const teeTimeTable = getTeeTimeTable();
+  addTeeTime(email, name, teeNbr, comingThursday, teeTimeTable[teeNbr]);
   return (
     <Card>
-      <NewTeeTimeForm teeTimeDate={comingThursday} teeTimeTable={ctx.teeTimeTable} />
+      <NewTeeTimeForm teeTimeDate={comingThursday} teeTimeTable={teeTimeTable} />
       <h3>Golf Tee Time(s) And Players For {comingThursday}</h3>
       <TeeTimes key="1" teeTimeDate={comingThursday} />
       <h4>Previous Golf Tee Time(s) And Players For {previousThursday}</h4>

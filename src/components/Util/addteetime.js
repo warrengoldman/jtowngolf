@@ -1,3 +1,20 @@
+export function getTeeTimeTable() {
+  const url = "https://jtowngolf-default-rtdb.firebaseio.com/timeoftee.json";
+  const syncFetch = require('sync-fetch');
+  const jsonData = syncFetch(url, {
+    headers: {
+      Accept: 'application/json'
+    }
+  }).json();
+  const teeTimeTable = [];
+  const keys = Object.keys(jsonData);
+  keys.forEach((key) => {
+    const timeOfTee = jsonData[key];
+    teeTimeTable[timeOfTee.teeNbr] = timeOfTee.teeTime;
+  });
+
+  return teeTimeTable;
+}
 export function addTeeTime(email, name, teeNbr, date, time) {
   if (!time) {
     return;
