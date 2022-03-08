@@ -5,7 +5,7 @@ const TeeTimeTableContext = React.createContext({
 });
 export default TeeTimeTableContext;
 export const TeeTimeTableContextProvider = (props) => {
-  const teeTimeTable = ["zerooffsetjunk", "3:27", "3:36", "3:45"];
+  const teeTimeTable = [];
   const golferEmailsMap = {
     "Tom Vallez": "tvallez@something.com",
     "Tom": "tvallez@something.com",
