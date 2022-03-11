@@ -109,3 +109,21 @@ export function removeGolfer(url) {
   }
   removeGolferInner(url, deleteAttributes);
 }
+export function updateGolfer(url, golfer) {
+
+  const putAttributes = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify(golfer),
+  };
+  async function updateGolferInner(url, postAttributes) {
+    await fetch(
+      url,
+      postAttributes
+    );
+  }
+  updateGolferInner(url, putAttributes);
+}

@@ -37,6 +37,7 @@ const getTeeTimes = (golfers) => {
   return teeTimes;
 };
 const TeeTimes = (props) => {
+  console.log('hi');
   const teeTimeDate = props.teeTimeDate;
   const [golfers, setGolfers] = useState();
   let teeTimes = getTeeTimes(golfers);
@@ -67,6 +68,7 @@ const TeeTimes = (props) => {
                 teeNbr: tee.teeNbr,
                 date: tee.date,
                 email: tee.email,
+                score: tee.score,
               };
             }
             return null;
