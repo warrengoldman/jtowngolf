@@ -1,11 +1,9 @@
-import React from "react";
-import Card from "../UI/Card";
+import React, { useContext, useState } from "react";
+import TeeTimeTableContext from "../../store/tee-time-table";
 import Button from '../UI/Button';
+import Card from "../UI/Card";
 import Radio from '../UI/Radio';
 import { addTeeTime } from '../Util/addteetime';
-import { useContext } from "react";
-import TeeTimeTableContext from "../../store/tee-time-table";
-import { useState } from 'react';
 import classes from './NewTeeTimeForm.module.css';
 const NewTeeTimeForm = (props) => {
   const ctx = useContext(TeeTimeTableContext);
@@ -79,6 +77,7 @@ const NewTeeTimeForm = (props) => {
         {teeTime3 && <Radio id={teeTime3} checked={state3} onChange={radioHandler3} name="teeTime" value={`3-${teeTime3}`} text={teeTime3}/>}
         {teeTime4 && <Radio id={teeTime4} checked={state4} onChange={radioHandler4} name="teeTime" value={`4-${teeTime4}`} text={teeTime4}/>}
         <label>Your name:  </label><input id='golfer' name='golfer' />
+        <br/>
         <Button>Add Yourself</Button>
         <p className={classes.error}>{`${!isValid ? 'Please select a time and enter a name' : ''}`}</p>
       </form>

@@ -1,11 +1,12 @@
 .golfer {
-  padding: .75rem 3.5rem;
   box-shadow: 0 2px 18px rgba(0, 0, 0, .25);
-  border-radius: 14px;
+  border-radius: 5px;
   background-color: yellow;
-  margin: 5px;
+  margin: 10px;
   height: auto;
   display: block;
+  font-size: medium;
+  min-width: 200px;
 }
 .golfer:hover,
 .golfer:active {

@@ -9,21 +9,21 @@ const Golfer = (props) => {
   const golferUrl = 'https://jtowngolf-default-rtdb.firebaseio.com/teetimes/' + golfer.key + '.json';
   const removeGolferFromTeeTime = () => {
     removeGolfer(golferUrl);
+    setShowModal(false);
     const reload = () => {
       window.location.reload();
     }
     setTimeout(reload, 1000);
   }
-  const onClose = (e, score) => {
+  const saveScore = (e, score) => {
     golfer.score = score;
     updateGolfer(golferUrl, golfer);
     setShowModal(false);
   };
-  const addScore =() => {
+  const editGolfer =() => {
     setShowModal(true);
   }
-  const golferScore = (golfer.score ? 'Score: ' + golfer.score : 'Enter Score');
-  const scoreAction = (golfer.score ? 'Update' : 'Add');
-  return <span className={classes.golfer}>{golfer.name} <br/> - <span className={classes.golferremove} onClick={removeGolferFromTeeTime} title="Click to remove">Remove</span> <br/> - <span className={classes.golferscore} onClick={addScore} title={scoreAction}>{golferScore}</span><Modal show={showModal}><ScoreEntryForm onClose={onClose}/></Modal> </span>
+  const golferScore = (golfer.score ? ' - ' + golfer.score : '');
+  return <span className={classes.golfer} onClick={editGolfer}>{golfer.name}{golferScore}<Modal show={showModal}><br/><ScoreEntryForm saveScore={saveScore} removeGolfer={removeGolferFromTeeTime} golfer={golfer}/></Modal></span>
 };
 export default Golfer;
