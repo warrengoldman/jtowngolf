@@ -24,6 +24,6 @@ const Golfer = (props) => {
   }
   const golferScore = (golfer.score ? 'Score: ' + golfer.score : 'Enter Score');
   const scoreAction = (golfer.score ? 'Update' : 'Add');
-  return <span className={classes.golfer}>{golfer.name} | <span onClick={removeGolferFromTeeTime} title="Click to remove">Remove</span> | <span onClick={addScore} title={scoreAction}>{golferScore}</span><Modal show={showModal}><ScoreEntryForm onClose={onClose}/></Modal> </span>
+  return <span className={classes.golfer}>{golfer.name} <br/> - <span className={classes.golferremove} onClick={removeGolferFromTeeTime} title="Click to remove">Remove</span> <br/> - <span className={classes.golferscore} onClick={addScore} title={scoreAction}>{golferScore}</span><Modal show={showModal}><ScoreEntryForm onClose={onClose}/></Modal> </span>
 };
 export default Golfer;
