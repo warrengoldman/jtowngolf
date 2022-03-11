@@ -1,9 +1,9 @@
-import { getTeeTimeTable } from '../Util/addteetime';
 import Golfer from './Golfer';
 import classes from "./TeeTime.module.css";
 const TeeTime = (props) => {
-  const teeTime = getTeeTimeTable()[props.teeNbr];
-  const names = props.golfers.map(golfer => <Golfer key={golfer.key} golfer={golfer} />);
+  const golfers = props.golfers;
+  const teeTime = golfers[0].time;
+  const names = golfers.map(golfer => <Golfer key={golfer.key} golfer={golfer} />);
   return (
     <li className={classes.teetime}>
       <div>
