@@ -2,8 +2,18 @@ import "./App.css";
 import NewTeeTimeForm from "./components/TeeTimes/NewTeeTimeForm";
 import TeeTimes from "./components/TeeTimes/TeeTimes";
 import Card from "./components/UI/Card";
-import { addTeeTime, getTeeTimeTable, removeTeeOffTimes, updateTeeTimes } from './components/Util/addteetime';
-import { getFormattedNextThursdayDate, getFormattedPreviousThursdayDate } from './components/Util/utils';
+import Button from "./components/UI/Button";
+import {
+  addTeeTime,
+  getTeeTimeTable,
+  removeTeeOffTimes,
+  updateTeeTimes,
+} from "./components/Util/addteetime";
+import {
+  getFormattedNextThursdayDate,
+  getFormattedPreviousThursdayDate,
+} from "./components/Util/utils";
+import { useState } from "react";
 function App(props) {
   const comingThursday = getFormattedNextThursdayDate();
   const previousThursday = getFormattedPreviousThursdayDate();
@@ -24,13 +34,50 @@ function App(props) {
   if (urlParams.get("removeteetimes")) {
     removeTeeOffTimes();
   }
+  const currentTeeTimesHeader = (
+    <h3>Golf Tee Time(s) And Players For {comingThursday}</h3>
+  );
+  const currentTeeTimes = (
+    <TeeTimes
+      key="1"
+      teeTimeDate={comingThursday}
+      header={currentTeeTimesHeader}
+    />
+  );
+  const previousTeeTimesHeader = (
+    <h4>Previous Golf Tee Time(s) And Players For {previousThursday}</h4>
+  );
+  const previousTeeTimes = (
+    <TeeTimes
+      key="2"
+      teeTimeDate={previousThursday}
+      header={previousTeeTimesHeader}
+    />
+  );
+
+  const [teeTimesVisible, setTeeTimesVisible] = useState(false);
+  const [newTeeTimeFormVisible, setNewTeeTimeFormVisible] = useState(true);
+  const showTeeTimesHandler = () => {
+    setTeeTimesVisible(true);
+    setNewTeeTimeFormVisible(false);
+  };
+  const enterTeeTimeHandler = () => {
+    setTeeTimesVisible(false);
+    setNewTeeTimeFormVisible(true);
+  };
   return (
     <Card>
-      <NewTeeTimeForm teeTimeDate={comingThursday} teeTimeTable={teeTimeTable} />
-      <h3>Golf Tee Time(s) And Players For {comingThursday}</h3>
-      <TeeTimes key="1" teeTimeDate={comingThursday} />
-      <h4>Previous Golf Tee Time(s) And Players For {previousThursday}</h4>
-      <TeeTimes key="2" teeTimeDate={previousThursday} />
+      <NewTeeTimeForm
+        teeTimeDate={comingThursday}
+        teeTimeTable={teeTimeTable}
+        showTeeTimesHandler={showTeeTimesHandler}
+        visible={newTeeTimeFormVisible}
+      />
+      <Card visible={teeTimesVisible}>
+        <Button type='button' onClick={enterTeeTimeHandler}>Enter Tee Time</Button>
+        {currentTeeTimes}
+        {/* {previousTeeTimes} */}
+      </Card>
     </Card>
   );
 }

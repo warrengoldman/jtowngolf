@@ -24,6 +24,6 @@ const Golfer = (props) => {
     setShowModal(true);
   }
   const golferScore = (golfer.score ? ' - ' + golfer.score : '');
-  return <span className={classes.golfer} onClick={editGolfer}>{golfer.name}{golferScore}<Modal show={showModal}><br/><ScoreEntryForm saveScore={saveScore} removeGolfer={removeGolferFromTeeTime} golfer={golfer}/></Modal></span>
+  return <span className={classes.golfer} onClick={editGolfer}>{golfer.name}{golferScore}<Modal show={showModal}><ScoreEntryForm saveScore={saveScore} removeGolfer={removeGolferFromTeeTime} golfer={golfer}/></Modal></span>
 };
 export default Golfer;

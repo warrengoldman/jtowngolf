@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import TeeTimeTableContext from "../../store/tee-time-table";
-import Button from '../UI/Button';
+import Button from "../UI/Button";
 import Card from "../UI/Card";
-import Radio from '../UI/Radio';
-import { addTeeTime } from '../Util/addteetime';
-import classes from './NewTeeTimeForm.module.css';
+import Radio from "../UI/Radio";
+import { addTeeTime } from "../Util/addteetime";
+import classes from "./NewTeeTimeForm.module.css";
 const NewTeeTimeForm = (props) => {
+  const showTeeTimesHandler = props.showTeeTimesHandler;
   const ctx = useContext(TeeTimeTableContext);
   const date = props.teeTimeDate;
   const teeTimeTable = props.teeTimeTable;
@@ -51,35 +52,80 @@ const NewTeeTimeForm = (props) => {
   };
   const [isValid, setValid] = useState(true);
   const submitHandler = (event) => {
-    const teeTimeValue = event.target.teeTime.value.split('-');
+    event.preventDefault();
+    const teeTimeValue = event.target.teeTime.value.split("-");
     const teeNbr = teeTimeValue[0];
     const time = teeTimeValue[1];
     const name = event.target.golfer.value;
     let email = ctx.golferEmailsMap[name];
     if (!email) {
-      email = '';
+      email = "";
     }
     if (name && time) {
       addTeeTime(email, name, teeNbr, date, time);
       setValid(true);
     } else {
       setValid(false);
-      event.preventDefault();
     }
-  }
+    const reload = () => {
+      window.location.reload();
+    }
+    setTimeout(reload, 1000);
+  };
+
   return (
-    <Card>
+    <Card visible={props.visible} name='NewTeeTimeForm' >
+      <h3>Sign up for tee spot on {date}</h3>
+      <h4>Select tee time</h4>
       <form onSubmit={submitHandler}>
-        <h3>Sign up for tee spot on {date}</h3>
-        <h4>Select tee time</h4>
-        {teeTime1 && <Radio id={teeTime1} checked={state1} onChange={radioHandler1} name="teeTime" value={`1-${teeTime1}`} text={teeTime1}/>}
-        {teeTime2 && <Radio id={teeTime2} checked={state2} onChange={radioHandler2} name="teeTime" value={`2-${teeTime2}`} text={teeTime2}/>}
-        {teeTime3 && <Radio id={teeTime3} checked={state3} onChange={radioHandler3} name="teeTime" value={`3-${teeTime3}`} text={teeTime3}/>}
-        {teeTime4 && <Radio id={teeTime4} checked={state4} onChange={radioHandler4} name="teeTime" value={`4-${teeTime4}`} text={teeTime4}/>}
-        <label>Your name:  </label><input id='golfer' name='golfer' />
-        <br/>
+        {teeTime1 && (
+          <Radio
+            id={teeTime1}
+            checked={state1}
+            onChange={radioHandler1}
+            name="teeTime"
+            value={`1-${teeTime1}`}
+            text={teeTime1}
+          />
+        )}
+        {teeTime2 && (
+          <Radio
+            id={teeTime2}
+            checked={state2}
+            onChange={radioHandler2}
+            name="teeTime"
+            value={`2-${teeTime2}`}
+            text={teeTime2}
+          />
+        )}
+        {teeTime3 && (
+          <Radio
+            id={teeTime3}
+            checked={state3}
+            onChange={radioHandler3}
+            name="teeTime"
+            value={`3-${teeTime3}`}
+            text={teeTime3}
+          />
+        )}
+        {teeTime4 && (
+          <Radio
+            id={teeTime4}
+            checked={state4}
+            onChange={radioHandler4}
+            name="teeTime"
+            value={`4-${teeTime4}`}
+            text={teeTime4}
+          />
+        )}
+        <label>Your name: </label>
+        <input id="golfer" name="golfer" />
+        <br />
         <Button>Add Yourself</Button>
-        <p className={classes.error}>{`${!isValid ? 'Please select a time and enter a name' : ''}`}</p>
+        <Button type='button' onClick={showTeeTimesHandler}>Show Golfers</Button>
+        <p className={classes.error}>{`${
+          !isValid ? "Please select a time and enter a name" : ""
+        }`}</p>
       </form>
     </Card>
   );

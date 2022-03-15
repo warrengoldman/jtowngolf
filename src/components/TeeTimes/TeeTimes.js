@@ -88,6 +88,6 @@ const TeeTimes = (props) => {
   useEffect(() => {
     fetchTeeTimes(setGolfers);
   }, []);
-  return <React.Fragment>{teeTimesUl}</React.Fragment>;
+  return <div>{props.header} {teeTimesUl}</div>;
 };
 export default TeeTimes;
