@@ -1,12 +1,21 @@
 const timeofteeurl = "https://jtowngolf-default-rtdb.firebaseio.com/timeoftee.json";
 
-export function getTeeTimeTable() {
+export function runFetch(url, attributes) {
   const syncFetch = require('sync-fetch');
-  const jsonData = syncFetch(timeofteeurl, {
+  let jsonData = {};
+  if (attributes) {
+    jsonData = syncFetch(url, attributes).json();
+  } else {
+    jsonData = syncFetch(url).json();
+  }
+  return jsonData;
+}
+export function getTeeTimeTable() {
+  const jsonData = runFetch(timeofteeurl, {
     headers: {
       Accept: 'application/json'
     }
-  }).json();
+  });
   let teeTimeTable = [];
   if (jsonData) {
     const keys = Object.keys(jsonData);
@@ -34,6 +43,7 @@ async function addTimeOfTee(url, teeTime, teeNbr) {
     teeTime: teeTime,
     teeNbr: teeNbr,
   };
+
   const postAttributes = {
     method: "POST",
     body: JSON.stringify(timeOfTee),
@@ -42,23 +52,16 @@ async function addTimeOfTee(url, teeTime, teeNbr) {
       "Access-Control-Allow-Origin": "*",
     },
   };
-  await fetch(
-    url,
-    postAttributes
-  );
+  runFetch(url, postAttributes);
 }
 export function removeTeeOffTimes() {
   const deleteAttributes = {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
     },
   }
-  fetch(
-    timeofteeurl,
-    deleteAttributes
-  );
+  runFetch(timeofteeurl, deleteAttributes);
 }
 export function addTeeTime(email, name, teeNbr, date, time) {
   if (!time) {
@@ -84,33 +87,23 @@ export function addTeeTime(email, name, teeNbr, date, time) {
         "Access-Control-Allow-Origin": "*",
       },
     };
-    async function addTeeTimeInner(postAttributes) {
-      await fetch(
-        "https://jtowngolf-default-rtdb.firebaseio.com/teetimes.json",
-        postAttributes
-      );
-    }
-    addTeeTimeInner(postAttributes);
+    runFetch(
+      "https://jtowngolf-default-rtdb.firebaseio.com/teetimes.json",
+      postAttributes
+    );
   }
 }
 export function removeGolfer(url) {
   const deleteAttributes = {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
   };
-  async function removeGolferInner(url, deleteAttributes) {
-    await fetch(
-      url,
-      deleteAttributes
-    );
-  }
-  removeGolferInner(url, deleteAttributes);
+  runFetch(url, deleteAttributes);
 }
 export function updateGolfer(url, golfer) {
-
   const putAttributes = {
     method: "PUT",
     headers: {
@@ -119,11 +112,5 @@ export function updateGolfer(url, golfer) {
     },
     body: JSON.stringify(golfer),
   };
-  async function updateGolferInner(url, postAttributes) {
-    await fetch(
-      url,
-      postAttributes
-    );
-  }
-  updateGolferInner(url, putAttributes);
+  runFetch(url, putAttributes);
 }

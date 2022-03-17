@@ -37,7 +37,7 @@ function App(props) {
   const currentTeeTimesHeader = (
     <h3>Golf Tee Time(s) And Players For {comingThursday}</h3>
   );
-  const currentTeeTimes = (
+  const [currentTeeTimes, setCurrentTeeTimes] = useState(
     <TeeTimes
       key="1"
       teeTimeDate={comingThursday}
@@ -58,6 +58,12 @@ function App(props) {
   const [teeTimesVisible, setTeeTimesVisible] = useState(false);
   const [newTeeTimeFormVisible, setNewTeeTimeFormVisible] = useState(true);
   const showTeeTimesHandler = () => {
+    const key = Math.random().toString();
+    setCurrentTeeTimes(<TeeTimes
+      key={key}
+      teeTimeDate={comingThursday}
+      header={currentTeeTimesHeader}
+    />);
     setTeeTimesVisible(true);
     setNewTeeTimeFormVisible(false);
   };

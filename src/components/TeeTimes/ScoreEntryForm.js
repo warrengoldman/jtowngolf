@@ -13,7 +13,7 @@ const ScoreEntryForm = (props) => {
     <Button>
       Save Score
     </Button><br/>
-    <Button onClick={removeGolferHandler}>Remove Tee</Button>
+    <Button onClick={removeGolferHandler}>Remove Golfer</Button>
   </Card>
   </form>
 }

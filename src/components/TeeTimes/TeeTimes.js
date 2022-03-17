@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { runFetch } from "../Util/addteetime.js";
 import Card from "../UI/Card";
 import TeeTime from "./TeeTime";
-const getTeeTimes = (golfers) => {
+import { useState } from "react";
+const getTeeTimes = (golfers, removeGolferHandler) => {
   if (!golfers) {
     return;
   }
@@ -13,33 +14,68 @@ const getTeeTimes = (golfers) => {
   let teeNbr = 1;
   if (golfersTee1.length > 0) {
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee1} teeNbr={teeNbr} />
+      <TeeTime key={teeNbr} golfers={golfersTee1} teeNbr={teeNbr} removeGolferHandler={removeGolferHandler} />
     );
   }
   if (golfersTee2.length > 0) {
     teeNbr = 2;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee2} teeNbr={teeNbr} />
+      <TeeTime key={teeNbr} golfers={golfersTee2} teeNbr={teeNbr} removeGolferHandler={removeGolferHandler}  />
     );
   }
   if (golfersTee3.length > 0) {
     teeNbr = 3;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee3} teeNbr={teeNbr} />
+      <TeeTime key={teeNbr} golfers={golfersTee3} teeNbr={teeNbr} removeGolferHandler={removeGolferHandler}  />
     );
   }
   if (golfersTee4.length > 0) {
     teeNbr = 4;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee4} teeNbr={teeNbr} />
+      <TeeTime key={teeNbr} golfers={golfersTee4} teeNbr={teeNbr} removeGolferHandler={removeGolferHandler}  />
     );
   }
   return teeTimes;
 };
 const TeeTimes = (props) => {
   const teeTimeDate = props.teeTimeDate;
-  const [golfers, setGolfers] = useState();
-  let teeTimes = getTeeTimes(golfers);
+  let tees = [];
+  const jsonData = runFetch(
+    "https://jtowngolf-default-rtdb.firebaseio.com/teetimes.json"
+  );
+  if (jsonData) {
+    const keys = Object.keys(jsonData);
+    tees = keys.map((key) => {
+      const tee = jsonData[key];
+      if (tee.date === teeTimeDate.toString()) {
+        return {
+          key: key,
+          id: tee.id,
+          name: tee.name,
+          time: tee.time,
+          teeNbr: tee.teeNbr,
+          date: tee.date,
+          email: tee.email,
+          score: tee.score,
+        };
+      }
+      return null;
+    });
+  }
+
+  const [teesInDb, setTeesInDb] = useState(
+    tees.filter((tee) => {
+      return tee != null;
+    })
+  );
+
+  const removeGolferHandler = (golferKey) => {
+    setTeesInDb(teesInDb.filter((tee) => {
+      return tee.key !== golferKey;
+    }))
+  };
+
+  let teeTimes = getTeeTimes(teesInDb, removeGolferHandler);
   let teeTimesUl = "";
   if (teeTimes) {
     teeTimesUl = (
@@ -48,46 +84,11 @@ const TeeTimes = (props) => {
       </Card>
     );
   }
-  const fetchTeeTimes = (setGolfersFunc) => {
-    fetch("https://jtowngolf-default-rtdb.firebaseio.com/teetimes.json")
-      .then((response) => {
-        return response.json();
-      })
-      .then((jsonData) => {
-        if (jsonData) {
-          const keys = Object.keys(jsonData);
-          const tees = keys.map((key) => {
-            const tee = jsonData[key];
-            if (tee.date === teeTimeDate.toString()) {
-              return {
-                key: key,
-                id: tee.id,
-                name: tee.name,
-                time: tee.time,
-                teeNbr: tee.teeNbr,
-                date: tee.date,
-                email: tee.email,
-                score: tee.score,
-              };
-            }
-            return null;
-          });
-          const teesInDb = tees.filter((tee) => {
-            return tee != null;
-          });
-          if (setGolfersFunc) {
-            setGolfersFunc(teesInDb);
-          }
-          return teesInDb;
-        }
-      })
-      .catch((error) => {
-        console.log("we got an error", error);
-      });
-  };
-  useEffect(() => {
-    fetchTeeTimes(setGolfers);
-  }, []);
-  return <div>{props.header} {teeTimesUl}</div>;
+
+  return (
+    <div>
+      {props.header} {teeTimesUl}
+    </div>
+  );
 };
 export default TeeTimes;

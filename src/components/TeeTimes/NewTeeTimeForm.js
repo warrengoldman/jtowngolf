@@ -15,6 +15,7 @@ const NewTeeTimeForm = (props) => {
   const teeTime3 = teeTimeTable[3];
   const teeTime4 = teeTimeTable[4];
   const [state1, setState1] = useState(false);
+  const [msg, setMsg] = useState("");
   const radioHandler1 = () => {
     if (!state1) {
       setState2(false);
@@ -51,8 +52,11 @@ const NewTeeTimeForm = (props) => {
     setState1(!state4);
   };
   const [isValid, setValid] = useState(true);
+  const [isSubmitted, setSubmitted] = useState(false);
+  const golferTextField = <input id="golfer" name="golfer" />;
   const submitHandler = (event) => {
     event.preventDefault();
+
     const teeTimeValue = event.target.teeTime.value.split("-");
     const teeNbr = teeTimeValue[0];
     const time = teeTimeValue[1];
@@ -64,13 +68,16 @@ const NewTeeTimeForm = (props) => {
     if (name && time) {
       addTeeTime(email, name, teeNbr, date, time);
       setValid(true);
+      setState1(false);
+      setState2(false);
+      setState3(false);
+      setState4(false);
+      document.getElementById('golfer').value="";
+      setSubmitted(true);
     } else {
       setValid(false);
+      setSubmitted(false);
     }
-    const reload = () => {
-      window.location.reload();
-    }
-    setTimeout(reload, 1000);
   };
 
   return (
@@ -119,12 +126,12 @@ const NewTeeTimeForm = (props) => {
           />
         )}
         <label>Your name: </label>
-        <input id="golfer" name="golfer" />
+        {golferTextField}
         <br />
-        <Button>Add Yourself</Button>
+        <Button>Add Golfer</Button>
         <Button type='button' onClick={showTeeTimesHandler}>Show Golfers</Button>
         <p className={classes.error}>{`${
-          !isValid ? "Please select a time and enter a name" : ""
+          !isValid ? "Please select a time and enter a name" : (isSubmitted ? "Tee Time Added" : "")
         }`}</p>
       </form>
     </Card>

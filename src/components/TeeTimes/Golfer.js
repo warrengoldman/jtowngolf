@@ -4,16 +4,14 @@ import { removeGolfer, updateGolfer } from '../Util/addteetime';
 import classes from './Golfer.module.css';
 import ScoreEntryForm from './ScoreEntryForm';
 const Golfer = (props) => {
+  const removeGolferHandler = props.removeGolferHandler;
   const [showModal, setShowModal] = useState(false);
   const golfer = props.golfer;
   const golferUrl = 'https://jtowngolf-default-rtdb.firebaseio.com/teetimes/' + golfer.key + '.json';
   const removeGolferFromTeeTime = () => {
     removeGolfer(golferUrl);
+    removeGolferHandler(golfer.key);
     setShowModal(false);
-    const reload = () => {
-      window.location.reload();
-    }
-    setTimeout(reload, 1000);
   }
   const saveScore = (e, score) => {
     golfer.score = score;
