@@ -125,9 +125,10 @@ const NewTeeTimeForm = (props) => {
             text={teeTime4}
           />
         )}
-        <label>Your name: </label>
+        <p className={classes.paragraph}>
+        <label className={classes.label}>Your name: </label>
         {golferTextField}
-        <br />
+        </p>
         <Button>Add Golfer</Button>
         <Button type='button' onClick={showTeeTimesHandler}>Show Golfers</Button>
         <p className={classes.error}>{`${

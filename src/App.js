@@ -35,7 +35,7 @@ function App(props) {
     removeTeeOffTimes();
   }
   const currentTeeTimesHeader = (
-    <h3>Golf Tee Time(s) And Players For {comingThursday}</h3>
+    <h3>Golf Tee Time(s) For {comingThursday}</h3>
   );
   const [currentTeeTimes, setCurrentTeeTimes] = useState(
     <TeeTimes
@@ -71,6 +71,7 @@ function App(props) {
     setTeeTimesVisible(false);
     setNewTeeTimeFormVisible(true);
   };
+  const teeEntryText = '<< Tee Entry';
   return (
     <Card>
       <NewTeeTimeForm
@@ -80,7 +81,9 @@ function App(props) {
         visible={newTeeTimeFormVisible}
       />
       <Card visible={teeTimesVisible}>
-        <Button type='button' onClick={enterTeeTimeHandler}>Enter Tee Time</Button>
+        <div align="center">
+          <Button type='button' onClick={enterTeeTimeHandler}>{teeEntryText}</Button>
+        </div>
         {currentTeeTimes}
         {/* {previousTeeTimes} */}
       </Card>

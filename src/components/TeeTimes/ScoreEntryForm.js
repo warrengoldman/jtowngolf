@@ -10,9 +10,11 @@ const ScoreEntryForm = (props) => {
   }
   return <form onSubmit={onClose}>
     <Card><label>Enter Score: </label><input name="score" />
+    <p>
     <Button>
       Save Score
-    </Button><br/>
+    </Button>
+    </p>
     <Button onClick={removeGolferHandler}>Remove Golfer</Button>
   </Card>
   </form>
