@@ -20,7 +20,7 @@ const GolferDetail = (props)=> {
     };
 
     return <Card visible={props.golferDetailVisible} name='gef'>{showTeeTimesButton}
-    <p className={classes.golferName}>{golfer.name}</p>
+    <p className={classes.golferName}>{golfer.date} - {golfer.name}</p>
     <GolferEntryForm saveScore={saveScoreHandler} removeGolfer={removeGolferFromTeeTime} golfer={golfer}/>
     <GolferScores golfer={golfer} />
     </Card>
