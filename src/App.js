@@ -3,6 +3,7 @@ import NewTeeTimeForm from "./components/TeeTimes/NewTeeTimeForm";
 import TeeTimes from "./components/TeeTimes/TeeTimes";
 import Card from "./components/UI/Card";
 import Button from "./components/UI/Button";
+import GolferDetail from './components/TeeTimes/GolferDetail';
 import {
   addTeeTime,
   getTeeTimeTable,
@@ -34,9 +35,7 @@ function App(props) {
   if (urlParams.get("removeteetimes")) {
     removeTeeOffTimes();
   }
-  const currentTeeTimesHeader = (
-    <h3>Golf Tee Time(s) For {comingThursday}</h3>
-  );
+  const currentTeeTimesHeader = <h3>Golf Tee Time(s) For {comingThursday}</h3>;
   const [currentTeeTimes, setCurrentTeeTimes] = useState(
     <TeeTimes
       key="1"
@@ -57,36 +56,59 @@ function App(props) {
 
   const [teeTimesVisible, setTeeTimesVisible] = useState(false);
   const [newTeeTimeFormVisible, setNewTeeTimeFormVisible] = useState(true);
+  const [golferDetailVisible, setGolferDetailVisible] = useState(false);
+  const [golfer, setGolfer] = useState();
+  const editGolferHandler = (e, golfer, visible) => {
+    setTeeTimesVisible(!visible);
+    setNewTeeTimeFormVisible(!visible);
+    setGolferDetailVisible(visible);
+    if (golfer) {
+      setGolfer(golfer);
+    }
+  }
   const showTeeTimesHandler = () => {
     const key = Math.random().toString();
-    setCurrentTeeTimes(<TeeTimes
-      key={key}
-      teeTimeDate={comingThursday}
-      header={currentTeeTimesHeader}
-    />);
+    setCurrentTeeTimes(
+      <TeeTimes
+        key={key}
+        teeTimeDate={comingThursday}
+        header={currentTeeTimesHeader}
+        editGolferHandler={editGolferHandler}
+      />
+    );
     setTeeTimesVisible(true);
     setNewTeeTimeFormVisible(false);
+    setGolferDetailVisible(false);
   };
+  const showTeeTimesButton = <Button type='button' onClick={showTeeTimesHandler}>Show Golfers</Button>
   const enterTeeTimeHandler = () => {
     setTeeTimesVisible(false);
     setNewTeeTimeFormVisible(true);
+    setGolferDetailVisible(false);
   };
-  const teeEntryText = '<< Tee Entry';
+  const teeEntryText = "<< Tee Entry";
+  const enterTeeTimesButton = 
+  <Button type="button" onClick={enterTeeTimeHandler}>
+    {teeEntryText}
+  </Button>;
   return (
     <Card>
       <NewTeeTimeForm
         teeTimeDate={comingThursday}
         teeTimeTable={teeTimeTable}
-        showTeeTimesHandler={showTeeTimesHandler}
+        showTeeTimesButton={showTeeTimesButton}
         visible={newTeeTimeFormVisible}
       />
       <Card visible={teeTimesVisible}>
         <div align="center">
-          <Button type='button' onClick={enterTeeTimeHandler}>{teeEntryText}</Button>
+          {enterTeeTimesButton}
         </div>
         {currentTeeTimes}
         {/* {previousTeeTimes} */}
       </Card>
+      <GolferDetail golferDetailVisible={golferDetailVisible} onClick={enterTeeTimeHandler} showTeeTimesButton={showTeeTimesButton} showTeeTimesHandler={showTeeTimesHandler} golfer={golfer}>
+
+      </GolferDetail>
     </Card>
   );
 }

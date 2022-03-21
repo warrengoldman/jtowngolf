@@ -3,7 +3,7 @@ import classes from "./TeeTime.module.css";
 const TeeTime = (props) => {
   const golfers = props.golfers;
   const teeTime = golfers[0].time;
-  const names = golfers.map(golfer => <Golfer key={golfer.key} golfer={golfer}  removeGolferHandler={props.removeGolferHandler} />);
+  const names = golfers.map(golfer => <Golfer key={golfer.key} golfer={golfer} editGolferHandler={props.editGolferHandler}/>);
   return (
     <li className={classes.teetime}>
       <div>

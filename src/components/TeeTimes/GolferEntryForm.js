@@ -1,17 +1,14 @@
 import Button from "../UI/Button";
 import Card from "../UI/Card";
-import classes from "./ScoreEntryForm.module.css";
+import classes from "./GolferEntryForm.module.css";
 
-const ScoreEntryForm = (props) => {
+const GolferEntryForm = (props) => {
   const removeGolferHandler = props.removeGolfer;
 
   const onClose = (e) => {
     e.preventDefault();
     props.saveScore(e, e.target.score.value);
   };
-  const showGolferScoresHandler = () => {
-    console.log('show golfer scores')
-  }
   return (
     <form onSubmit={onClose}>
       <Card>
@@ -25,4 +22,4 @@ const ScoreEntryForm = (props) => {
     </form>
   );
 };
-export default ScoreEntryForm;
+export default GolferEntryForm;

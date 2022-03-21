@@ -6,7 +6,7 @@ import Radio from "../UI/Radio";
 import { addTeeTime } from "../Util/addteetime";
 import classes from "./NewTeeTimeForm.module.css";
 const NewTeeTimeForm = (props) => {
-  const showTeeTimesHandler = props.showTeeTimesHandler;
+  const showTeeTimesButton = props.showTeeTimesButton;
   const ctx = useContext(TeeTimeTableContext);
   const date = props.teeTimeDate;
   const teeTimeTable = props.teeTimeTable;
@@ -15,7 +15,6 @@ const NewTeeTimeForm = (props) => {
   const teeTime3 = teeTimeTable[3];
   const teeTime4 = teeTimeTable[4];
   const [state1, setState1] = useState(false);
-  const [msg, setMsg] = useState("");
   const radioHandler1 = () => {
     if (!state1) {
       setState2(false);
@@ -79,7 +78,6 @@ const NewTeeTimeForm = (props) => {
       setSubmitted(false);
     }
   };
-
   return (
     <Card visible={props.visible} name='NewTeeTimeForm' >
       <h3>Sign up for tee spot on {date}</h3>
@@ -130,7 +128,7 @@ const NewTeeTimeForm = (props) => {
         {golferTextField}
         </p>
         <Button>Add Golfer</Button>
-        <Button type='button' onClick={showTeeTimesHandler}>Show Golfers</Button>
+        {showTeeTimesButton}
         <p className={classes.error}>{`${
           !isValid ? "Please select a time and enter a name" : (isSubmitted ? "Tee Time Added" : "")
         }`}</p>

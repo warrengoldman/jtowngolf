@@ -2,7 +2,7 @@ import { runFetch } from "../Util/addteetime.js";
 import Card from "../UI/Card";
 import TeeTime from "./TeeTime";
 import { useState } from "react";
-const getTeeTimes = (golfers, removeGolferHandler) => {
+const getTeeTimes = (golfers, editGolferHandler) => {
   if (!golfers) {
     return;
   }
@@ -14,30 +14,31 @@ const getTeeTimes = (golfers, removeGolferHandler) => {
   let teeNbr = 1;
   if (golfersTee1.length > 0) {
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee1} teeNbr={teeNbr} removeGolferHandler={removeGolferHandler} />
+      <TeeTime key={teeNbr} golfers={golfersTee1} teeNbr={teeNbr} editGolferHandler={editGolferHandler}/>
     );
   }
   if (golfersTee2.length > 0) {
     teeNbr = 2;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee2} teeNbr={teeNbr} removeGolferHandler={removeGolferHandler}  />
+      <TeeTime key={teeNbr} golfers={golfersTee2} teeNbr={teeNbr} editGolferHandler={editGolferHandler}/>
     );
   }
   if (golfersTee3.length > 0) {
     teeNbr = 3;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee3} teeNbr={teeNbr} removeGolferHandler={removeGolferHandler}  />
+      <TeeTime key={teeNbr} golfers={golfersTee3} teeNbr={teeNbr} editGolferHandler={editGolferHandler}/>
     );
   }
   if (golfersTee4.length > 0) {
     teeNbr = 4;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee4} teeNbr={teeNbr} removeGolferHandler={removeGolferHandler}  />
+      <TeeTime key={teeNbr} golfers={golfersTee4} teeNbr={teeNbr} editGolferHandler={editGolferHandler}/>
     );
   }
   return teeTimes;
 };
 const TeeTimes = (props) => {
+  const editGolferHandler = props.editGolferHandler;
   const teeTimeDate = props.teeTimeDate;
   let tees = [];
   const jsonData = runFetch(
@@ -69,13 +70,13 @@ const TeeTimes = (props) => {
     })
   );
 
-  const removeGolferHandler = (golferKey) => {
-    setTeesInDb(teesInDb.filter((tee) => {
-      return tee.key !== golferKey;
-    }))
-  };
+  // const removeGolferHandler = (golferKey) => {
+  //   setTeesInDb(teesInDb.filter((tee) => {
+  //     return tee.key !== golferKey;
+  //   }))
+  // };
 
-  let teeTimes = getTeeTimes(teesInDb, removeGolferHandler);
+  let teeTimes = getTeeTimes(teesInDb, editGolferHandler);
   let teeTimesUl = "";
   if (teeTimes) {
     teeTimesUl = (

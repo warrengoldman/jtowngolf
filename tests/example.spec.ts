@@ -1,25 +1,17 @@
-import { test, expect, Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-let beforeAll = '';
 let myPage;
 test.beforeAll(async() => {
-    beforeAll = 'ran';
     const { chromium } = require('playwright');
     const browser = await chromium.launch();
     myPage = await browser.newPage();
   }
 );
 test.afterAll(async() => {
-    console.log('afterAll ran', beforeAll);
+    myPage.close();
   }
 );
-test("mobile test2", async ({ page }) => {
-  console.log('test two ran', beforeAll);
-  beforeAll = 'test2';
-});
-test("mobile test", async ({ }) => {
-  console.log('test three ran', beforeAll);
-  beforeAll = 'test3';
+test("mobile test", async ({}) => {
   await myPage.setViewportSize({
     width: 425,
     height: 510,

@@ -1,7 +1,8 @@
-const timeofteeurl = "https://jtowngolf-default-rtdb.firebaseio.com/timeoftee.json";
+const timeofteeurl =
+  "https://jtowngolf-default-rtdb.firebaseio.com/timeoftee.json";
 
 export function runFetch(url, attributes) {
-  const syncFetch = require('sync-fetch');
+  const syncFetch = require("sync-fetch");
   let jsonData = {};
   if (attributes) {
     jsonData = syncFetch(url, attributes).json();
@@ -13,8 +14,8 @@ export function runFetch(url, attributes) {
 export function getTeeTimeTable() {
   const jsonData = runFetch(timeofteeurl, {
     headers: {
-      Accept: 'application/json'
-    }
+      Accept: "application/json",
+    },
   });
   let teeTimeTable = [];
   if (jsonData) {
@@ -35,7 +36,9 @@ export function updateTeeTimes(teeTimes) {
     return;
   }
   let teeNbr = 1;
-  teeTimes.split(",").forEach(teeTime => addTimeOfTee(timeofteeurl, teeTime, teeNbr++));
+  teeTimes
+    .split(",")
+    .forEach((teeTime) => addTimeOfTee(timeofteeurl, teeTime, teeNbr++));
 }
 async function addTimeOfTee(url, teeTime, teeNbr) {
   const timeOfTee = {
@@ -60,7 +63,7 @@ export function removeTeeOffTimes() {
     headers: {
       "Content-Type": "application/json",
     },
-  }
+  };
   runFetch(timeofteeurl, deleteAttributes);
 }
 export function addTeeTime(email, name, teeNbr, date, time) {
@@ -95,10 +98,9 @@ export function addTeeTime(email, name, teeNbr, date, time) {
 }
 export function removeGolfer(url) {
   const deleteAttributes = {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
     },
   };
   runFetch(url, deleteAttributes);
@@ -113,4 +115,20 @@ export function updateGolfer(url, golfer) {
     body: JSON.stringify(golfer),
   };
   runFetch(url, putAttributes);
+}
+export function getGolferRounds(golferName) {
+  const golferUrl =
+    "https://jtowngolf-default-rtdb.firebaseio.com/teetimes.json";
+  const allGolferRounds = runFetch(golferUrl);
+  let golferRounds = [];
+  if (allGolferRounds) {
+    const keys = Object.keys(allGolferRounds);
+    keys.forEach((key) => {
+      let golferRound = allGolferRounds[key];
+      if (golferRound.name === golferName) {
+        golferRounds.push(golferRound);
+      }
+    })
+  }
+  return golferRounds;
 }
