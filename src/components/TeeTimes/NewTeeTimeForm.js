@@ -52,14 +52,26 @@ const NewTeeTimeForm = (props) => {
   };
   const [isValid, setValid] = useState(true);
   const [isSubmitted, setSubmitted] = useState(false);
-  const golferTextField = <input id="golfer" name="golfer" />;
+  const golferTextField1 = <input id="golfer1" name="golfer" />;
+  const golferTextField2 = <input id="golfer2" name="golfer" />;
+  const golferTextField3 = <input id="golfer3" name="golfer" />;
+  const golferTextField4 = <input id="golfer4" name="golfer" />;
   const submitHandler = (event) => {
     event.preventDefault();
 
     const teeTimeValue = event.target.teeTime.value.split("-");
     const teeNbr = teeTimeValue[0];
     const time = teeTimeValue[1];
-    const name = event.target.golfer.value;
+    let name = event.target.golfer1.value;
+    if (!name && event.target.golfer2) {
+      name = event.target.golfer2.value;
+    }
+    if (!name && event.target.golfer3) {
+      name = event.target.golfer3.value;
+    }
+    if (!name && event.target.golfer4) {
+      name = event.target.golfer4.value;
+    }
     let email = ctx.golferEmailsMap[name];
     if (!email) {
       email = "";
@@ -71,7 +83,18 @@ const NewTeeTimeForm = (props) => {
       setState2(false);
       setState3(false);
       setState4(false);
-      document.getElementById('golfer').value="";
+      if (document.getElementById('golfer1')) {
+        document.getElementById('golfer1').value="";
+      }
+      if (document.getElementById('golfer2')) {
+        document.getElementById('golfer2').value="";
+      }
+      if (document.getElementById('golfer3')) {
+        document.getElementById('golfer3').value="";
+      }
+      if (document.getElementById('golfer4')) {
+        document.getElementById('golfer4').value="";
+      }
       setSubmitted(true);
     } else {
       setValid(false);
@@ -91,6 +114,7 @@ const NewTeeTimeForm = (props) => {
             name="teeTime"
             value={`1-${teeTime1}`}
             text={teeTime1}
+            golferInput={golferTextField1}
           />
         )}
         {teeTime2 && (
@@ -101,6 +125,7 @@ const NewTeeTimeForm = (props) => {
             name="teeTime"
             value={`2-${teeTime2}`}
             text={teeTime2}
+            golferInput={golferTextField2}
           />
         )}
         {teeTime3 && (
@@ -111,6 +136,7 @@ const NewTeeTimeForm = (props) => {
             name="teeTime"
             value={`3-${teeTime3}`}
             text={teeTime3}
+            golferInput={golferTextField3}
           />
         )}
         {teeTime4 && (
@@ -121,16 +147,13 @@ const NewTeeTimeForm = (props) => {
             name="teeTime"
             value={`4-${teeTime4}`}
             text={teeTime4}
+            golferInput={golferTextField4}
           />
         )}
-        <p className={classes.paragraph}>
-        <label className={classes.label}>Your name: </label>
-        {golferTextField}
-        </p>
         <Button>Add Golfer</Button>
         {showTeeTimesButton}
         <p className={classes.error}>{`${
-          !isValid ? "Please select a time and enter a name" : (isSubmitted ? "Tee Time Added" : "")
+          !isValid ? "Please select a time and enter a name" : (isSubmitted ? "Tee Time Added, Refresh To Display Addition" : "")
         }`}</p>
       </form>
     </Card>

@@ -5,9 +5,9 @@ const Radio = (props) => {
   const text = props.text;
   const name = props.name;
   const radioHandler = props.onChange;
+  const golferInput = props.golferInput;
   return (
     <div className={`${props.checked ? classes.radioselected : classes.radio}`} onClick={radioHandler}>
-      <label>{text}</label>
       <input
         id={id}
         value={value}
@@ -17,6 +17,8 @@ const Radio = (props) => {
         onChange={radioHandler}
         onClick={radioHandler}
       />
+      <label>{text}&nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <label className={classes.label}>Your name: </label>{golferInput}
     </div>
   );
 };

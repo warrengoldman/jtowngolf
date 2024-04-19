@@ -1,6 +1,7 @@
 import "./App.css";
 import NewTeeTimeForm from "./components/TeeTimes/NewTeeTimeForm";
 import TeeTimes from "./components/TeeTimes/TeeTimes";
+import TeeTimesDisplay from "./components/TeeTimes/TeeTimesDisplay";
 import Card from "./components/UI/Card";
 import Button from "./components/UI/Button";
 import GolferDetail from './components/TeeTimes/GolferDetail';
@@ -41,6 +42,11 @@ function App(props) {
       key="1"
       teeTimeDate={comingThursday}
       header={currentTeeTimesHeader}
+    />
+  );
+  const [currentTeeTimesDisplay] = useState(
+    <TeeTimesDisplay
+      teeTimeDate={comingThursday}
     />
   );
   const previousTeeTimesHeader = (
@@ -99,6 +105,9 @@ function App(props) {
         showTeeTimesButton={showTeeTimesButton}
         visible={newTeeTimeFormVisible}
       />
+      <Card visible={!teeTimesVisible}>
+        {currentTeeTimesDisplay}
+      </Card>
       <Card visible={teeTimesVisible}>
         <div align="center">
           {enterTeeTimesButton}
