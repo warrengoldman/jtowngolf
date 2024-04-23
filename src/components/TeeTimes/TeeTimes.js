@@ -64,11 +64,16 @@ const TeeTimes = (props) => {
     });
   }
 
-  const [teesInDb, setTeesInDb] = useState(
+  const [teesInDb] = useState(
     tees.filter((tee) => {
       return tee != null;
     })
   );
+  // const [teesInDb, setTeesInDb] = useState(
+  //   tees.filter((tee) => {
+  //     return tee != null;
+  //   })
+  // );
 
   // const removeGolferHandler = (golferKey) => {
   //   setTeesInDb(teesInDb.filter((tee) => {

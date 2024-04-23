@@ -49,16 +49,16 @@ function App(props) {
       teeTimeDate={comingThursday}
     />
   );
-  const previousTeeTimesHeader = (
-    <h4>Previous Golf Tee Time(s) And Players For {previousThursday}</h4>
-  );
-  const previousTeeTimes = (
-    <TeeTimes
-      key="2"
-      teeTimeDate={previousThursday}
-      header={previousTeeTimesHeader}
-    />
-  );
+  // const previousTeeTimesHeader = (
+  //   <h4>Previous Golf Tee Time(s) And Players For {previousThursday}</h4>
+  // );
+  // const previousTeeTimes = (
+  //   <TeeTimes
+  //     key="2"
+  //     teeTimeDate={previousThursday}
+  //     header={previousTeeTimesHeader}
+  //   />
+  // );
 
   const [teeTimesVisible, setTeeTimesVisible] = useState(false);
   const [newTeeTimeFormVisible, setNewTeeTimeFormVisible] = useState(true);
