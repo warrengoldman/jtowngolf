@@ -19,6 +19,7 @@ import { useState } from "react";
 function App(props) {
   const comingThursday = getFormattedNextThursdayDate();
   const previousThursday = getFormattedPreviousThursdayDate();
+  console.log(previousThursday);
   const urlParams = new URLSearchParams(window.location.search);
   let email = urlParams.get("email");
   let name = urlParams.get("name");
