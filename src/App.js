@@ -94,6 +94,7 @@ function App(props) {
     setTeeTimesVisible(false);
     setNewTeeTimeFormVisible(true);
     setGolferDetailVisible(false);
+    document.location.reload();
   };
   const teeEntryText = "<< Tee Entry";
   const enterTeeTimesButton = (
