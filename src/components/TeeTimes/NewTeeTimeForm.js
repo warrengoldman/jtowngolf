@@ -115,6 +115,7 @@ const NewTeeTimeForm = (props) => {
         document.getElementById("golfer4").value = "";
       }
       setSubmitted(true);
+      document.location.reload();
     } else {
       setValid(false);
       setSubmitted(false);
