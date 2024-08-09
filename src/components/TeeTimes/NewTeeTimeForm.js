@@ -60,16 +60,35 @@ const NewTeeTimeForm = (props) => {
     event.preventDefault();
 
     const teeTimeValue = event.target.teeTime.value.split("-");
-    const teeNbr = teeTimeValue[0];
-    const time = teeTimeValue[1];
+    let teeNbr = teeTimeValue[0];
+    let time = "";
+    if (teeTimeValue[0] !== "") {
+      time = teeTimeValue[1];
+    } else {
+      teeNbr = "1";
+      time = event.target.teeTime[0].value.split("-")[1];
+    }
+
     let name = event.target.golfer1.value;
     if (!name && event.target.golfer2) {
+      if (time === "") {
+        teeNbr = "2";
+        time = event.target.teeTime[1].value.split("-")[1];
+      }
       name = event.target.golfer2.value;
     }
     if (!name && event.target.golfer3) {
+      if (time === "") {
+        teeNbr = "3";
+        time = event.target.teeTime[2].value.split("-")[1];
+      }
       name = event.target.golfer3.value;
     }
     if (!name && event.target.golfer4) {
+      if (time === "") {
+        teeNbr = "4";
+        time = event.target.teeTime[3].value.split("-")[1];
+      }
       name = event.target.golfer4.value;
     }
     let email = ctx.golferEmailsMap[name];
@@ -83,17 +102,17 @@ const NewTeeTimeForm = (props) => {
       setState2(false);
       setState3(false);
       setState4(false);
-      if (document.getElementById('golfer1')) {
-        document.getElementById('golfer1').value="";
+      if (document.getElementById("golfer1")) {
+        document.getElementById("golfer1").value = "";
       }
-      if (document.getElementById('golfer2')) {
-        document.getElementById('golfer2').value="";
+      if (document.getElementById("golfer2")) {
+        document.getElementById("golfer2").value = "";
       }
-      if (document.getElementById('golfer3')) {
-        document.getElementById('golfer3').value="";
+      if (document.getElementById("golfer3")) {
+        document.getElementById("golfer3").value = "";
       }
-      if (document.getElementById('golfer4')) {
-        document.getElementById('golfer4').value="";
+      if (document.getElementById("golfer4")) {
+        document.getElementById("golfer4").value = "";
       }
       setSubmitted(true);
     } else {
@@ -102,7 +121,7 @@ const NewTeeTimeForm = (props) => {
     }
   };
   return (
-    <Card visible={props.visible} name='NewTeeTimeForm' >
+    <Card visible={props.visible} name="NewTeeTimeForm">
       <h3>Sign up for tee spot on {date}</h3>
       <h4>Select tee time</h4>
       <form onSubmit={submitHandler}>
@@ -153,7 +172,11 @@ const NewTeeTimeForm = (props) => {
         <Button>Add Golfer</Button>
         {showTeeTimesButton}
         <p className={classes.error}>{`${
-          !isValid ? "Please select a time and enter a name" : (isSubmitted ? "Tee Time Added, Refresh To Display Addition" : "")
+          !isValid
+            ? "Please select a time and enter a name"
+            : isSubmitted
+            ? "Tee Time Added, Refresh To Display Addition"
+            : ""
         }`}</p>
       </form>
     </Card>
