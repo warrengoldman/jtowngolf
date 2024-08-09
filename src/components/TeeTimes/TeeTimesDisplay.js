@@ -14,25 +14,25 @@ const getTeeTimes = (golfers) => {
   let teeNbr = 1;
   if (golfersTee1.length > 0) {
     teeTimes.push(
-      <TeeTimeDisplay key={teeNbr} golfers={golfersTee1} teeNbr={teeNbr}/>
+      <TeeTimeDisplay key={teeNbr} golfers={golfersTee1} teeNbr={teeNbr} />
     );
   }
   if (golfersTee2.length > 0) {
     teeNbr = 2;
     teeTimes.push(
-      <TeeTimeDisplay key={teeNbr} golfers={golfersTee2} teeNbr={teeNbr}/>
+      <TeeTimeDisplay key={teeNbr} golfers={golfersTee2} teeNbr={teeNbr} />
     );
   }
   if (golfersTee3.length > 0) {
     teeNbr = 3;
     teeTimes.push(
-      <TeeTimeDisplay key={teeNbr} golfers={golfersTee3} teeNbr={teeNbr}/>
+      <TeeTimeDisplay key={teeNbr} golfers={golfersTee3} teeNbr={teeNbr} />
     );
   }
   if (golfersTee4.length > 0) {
     teeNbr = 4;
     teeTimes.push(
-      <TeeTimeDisplay key={teeNbr} golfers={golfersTee4} teeNbr={teeNbr}/>
+      <TeeTimeDisplay key={teeNbr} golfers={golfersTee4} teeNbr={teeNbr} />
     );
   }
   return teeTimes;
@@ -85,10 +85,6 @@ const TeeTimesDisplay = (props) => {
     );
   }
 
-  return (
-    <div>
-      {teeTimesUl}
-    </div>
-  );
+  return <div>{teeTimesUl}</div>;
 };
 export default TeeTimesDisplay;
