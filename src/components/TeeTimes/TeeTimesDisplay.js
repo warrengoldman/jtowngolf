@@ -1,7 +1,6 @@
 import { runFetch } from "../Util/addteetime.js";
 import Card from "../UI/Card.js";
 import TeeTimeDisplay from "./TeeTimeDisplay.js";
-import { useState } from "react";
 const getTeeTimes = (golfers) => {
   if (!golfers) {
     return;
