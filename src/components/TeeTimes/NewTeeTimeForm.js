@@ -5,7 +5,9 @@ import Card from "../UI/Card";
 import Radio from "../UI/Radio";
 import { addTeeTime } from "../Util/addteetime";
 import classes from "./NewTeeTimeForm.module.css";
+import TeeTimesDisplay from "./TeeTimesDisplay";
 const NewTeeTimeForm = (props) => {
+  const setCurrentTeeTimesDisplay = props.setCurrentTeeTimesDisplay;
   const showTeeTimesButton = props.showTeeTimesButton;
   const ctx = useContext(TeeTimeTableContext);
   const date = props.teeTimeDate;
@@ -65,28 +67,28 @@ const NewTeeTimeForm = (props) => {
     if (teeTimeValue[0] !== "") {
       time = teeTimeValue[1];
     } else {
-      teeNbr = "1";
+      teeNbr = 1;
       time = event.target.teeTime[0].value.split("-")[1];
     }
 
     let name = event.target.golfer1.value;
     if (!name && event.target.golfer2) {
       if (time === "") {
-        teeNbr = "2";
+        teeNbr = 2;
         time = event.target.teeTime[1].value.split("-")[1];
       }
       name = event.target.golfer2.value;
     }
     if (!name && event.target.golfer3) {
       if (time === "") {
-        teeNbr = "3";
+        teeNbr = 3;
         time = event.target.teeTime[2].value.split("-")[1];
       }
       name = event.target.golfer3.value;
     }
     if (!name && event.target.golfer4) {
       if (time === "") {
-        teeNbr = "4";
+        teeNbr = 4;
         time = event.target.teeTime[3].value.split("-")[1];
       }
       name = event.target.golfer4.value;
@@ -115,7 +117,11 @@ const NewTeeTimeForm = (props) => {
         document.getElementById("golfer4").value = "";
       }
       setSubmitted(true);
-      document.location.reload();
+      const gettees = () => {
+        return <TeeTimesDisplay teeTimeDate={date} />;
+      };
+      const tees = gettees();
+      setCurrentTeeTimesDisplay(tees);
     } else {
       setValid(false);
       setSubmitted(false);

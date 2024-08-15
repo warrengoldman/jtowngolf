@@ -6,10 +6,18 @@ const getTeeTimes = (golfers) => {
   if (!golfers) {
     return;
   }
-  const golfersTee1 = golfers.filter((golfer) => golfer.teeNbr === "1");
-  const golfersTee2 = golfers.filter((golfer) => golfer.teeNbr === "2");
-  const golfersTee3 = golfers.filter((golfer) => golfer.teeNbr === "3");
-  const golfersTee4 = golfers.filter((golfer) => golfer.teeNbr === "4");
+  const golfersTee1 = golfers.filter(
+    (golfer) => golfer.teeNbr === "1" || golfer.teeNbr === 1
+  );
+  const golfersTee2 = golfers.filter(
+    (golfer) => golfer.teeNbr === "2" || golfer.teeNbr === 2
+  );
+  const golfersTee3 = golfers.filter(
+    (golfer) => golfer.teeNbr === "3" || golfer.teeNbr === 3
+  );
+  const golfersTee4 = golfers.filter(
+    (golfer) => golfer.teeNbr === "4" || golfer.teeNbr === 4
+  );
   const teeTimes = [];
   let teeNbr = 1;
   if (golfersTee1.length > 0) {
@@ -45,37 +53,29 @@ const TeeTimesDisplay = (props) => {
   );
   if (jsonData) {
     const keys = Object.keys(jsonData);
-    tees = keys.map((key) => {
-      const tee = jsonData[key];
-      if (tee.date === teeTimeDate.toString()) {
-        return {
-          key: key,
-          id: tee.id,
-          name: tee.name,
-          time: tee.time,
-          teeNbr: tee.teeNbr,
-          date: tee.date,
-          email: tee.email,
-          score: tee.score,
-        };
-      }
-      return null;
-    });
+    tees = keys
+      .map((key) => {
+        const tee = jsonData[key];
+        if (tee.date === teeTimeDate.toString()) {
+          return {
+            key: key,
+            id: tee.id,
+            name: tee.name,
+            time: tee.time,
+            teeNbr: tee.teeNbr,
+            date: tee.date,
+            email: tee.email,
+            score: tee.score,
+          };
+        }
+        return null;
+      })
+      .filter((tee) => {
+        return tee != null;
+      });
   }
 
-  const [teesInDb] = useState(
-    tees.filter((tee) => {
-      return tee != null;
-    })
-  );
-
-  // const removeGolferHandler = (golferKey) => {
-  //   setTeesInDb(teesInDb.filter((tee) => {
-  //     return tee.key !== golferKey;
-  //   }))
-  // };
-
-  let teeTimes = getTeeTimes(teesInDb);
+  let teeTimes = getTeeTimes(tees);
   let teeTimesUl = "";
   if (teeTimes) {
     teeTimesUl = (

@@ -45,7 +45,7 @@ function App(props) {
       header={currentTeeTimesHeader}
     />
   );
-  const [currentTeeTimesDisplay] = useState(
+  const [currentTeeTimesDisplay, setCurrentTeeTimesDisplay] = useState(
     <TeeTimesDisplay teeTimeDate={comingThursday} />
   );
   // const previousTeeTimesHeader = (
@@ -109,6 +109,7 @@ function App(props) {
         teeTimeTable={teeTimeTable}
         showTeeTimesButton={showTeeTimesButton}
         visible={newTeeTimeFormVisible}
+        setCurrentTeeTimesDisplay={setCurrentTeeTimesDisplay}
       />
       <span hidden={teeTimesVisible}>{currentTeeTimesDisplay}</span>
       <Card visible={teeTimesVisible}>

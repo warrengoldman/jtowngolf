@@ -6,33 +6,61 @@ const getTeeTimes = (golfers, editGolferHandler) => {
   if (!golfers) {
     return;
   }
-  const golfersTee1 = golfers.filter((golfer) => golfer.teeNbr === "1");
-  const golfersTee2 = golfers.filter((golfer) => golfer.teeNbr === "2");
-  const golfersTee3 = golfers.filter((golfer) => golfer.teeNbr === "3");
-  const golfersTee4 = golfers.filter((golfer) => golfer.teeNbr === "4");
+  const golfersTee1 = golfers.filter(
+    (golfer) => golfer.teeNbr === "1" || golfer.teeNbr === 1
+  );
+  const golfersTee2 = golfers.filter(
+    (golfer) => golfer.teeNbr === "2" || golfer.teeNbr === 2
+  );
+  const golfersTee3 = golfers.filter(
+    (golfer) => golfer.teeNbr === "3" || golfer.teeNbr === 3
+  );
+  const golfersTee4 = golfers.filter(
+    (golfer) => golfer.teeNbr === "4" || golfer.teeNbr === 4
+  );
   const teeTimes = [];
   let teeNbr = 1;
   if (golfersTee1.length > 0) {
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee1} teeNbr={teeNbr} editGolferHandler={editGolferHandler}/>
+      <TeeTime
+        key={teeNbr}
+        golfers={golfersTee1}
+        teeNbr={teeNbr}
+        editGolferHandler={editGolferHandler}
+      />
     );
   }
   if (golfersTee2.length > 0) {
     teeNbr = 2;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee2} teeNbr={teeNbr} editGolferHandler={editGolferHandler}/>
+      <TeeTime
+        key={teeNbr}
+        golfers={golfersTee2}
+        teeNbr={teeNbr}
+        editGolferHandler={editGolferHandler}
+      />
     );
   }
   if (golfersTee3.length > 0) {
     teeNbr = 3;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee3} teeNbr={teeNbr} editGolferHandler={editGolferHandler}/>
+      <TeeTime
+        key={teeNbr}
+        golfers={golfersTee3}
+        teeNbr={teeNbr}
+        editGolferHandler={editGolferHandler}
+      />
     );
   }
   if (golfersTee4.length > 0) {
     teeNbr = 4;
     teeTimes.push(
-      <TeeTime key={teeNbr} golfers={golfersTee4} teeNbr={teeNbr} editGolferHandler={editGolferHandler}/>
+      <TeeTime
+        key={teeNbr}
+        golfers={golfersTee4}
+        teeNbr={teeNbr}
+        editGolferHandler={editGolferHandler}
+      />
     );
   }
   return teeTimes;
