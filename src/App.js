@@ -87,7 +87,7 @@ function App(props) {
     setGolferDetailVisible(false);
   };
   const showTeeTimesButton = (
-    <Button type="button" onClick={showTeeTimesHandler}>
+    <Button hidden="true" type="button" onClick={showTeeTimesHandler}>
       Show Golfers
     </Button>
   );

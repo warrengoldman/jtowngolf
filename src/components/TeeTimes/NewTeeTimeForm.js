@@ -130,7 +130,6 @@ const NewTeeTimeForm = (props) => {
   return (
     <Card visible={props.visible} name="NewTeeTimeForm">
       <h3>Sign up for tee spot on {date}</h3>
-      <h4>Select tee time</h4>
       <form onSubmit={submitHandler}>
         {teeTime1 && (
           <Radio
