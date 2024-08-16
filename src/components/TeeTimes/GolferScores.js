@@ -1,10 +1,15 @@
-import { getGolferRounds } from '../Util/addteetime';
+import { getGolferRounds } from "../Util/addteetime";
+import React from "react";
 const GolferScores = (props) => {
   const golferListItems = [];
   const golferRounds = getGolferRounds(props.golfer.name);
-  golferRounds.forEach( (golferRound) => {
-    golferListItems.push(<li key={Math.random()}>Date: {golferRound.date} - Score: {golferRound.score}</li>);
+  golferRounds.forEach((golferRound) => {
+    golferListItems.push(
+      <li key={Math.random()}>
+        Date: {golferRound.date} - Score: {golferRound.score}
+      </li>
+    );
   });
   return <ul>{golferListItems}</ul>;
-}
+};
 export default GolferScores;

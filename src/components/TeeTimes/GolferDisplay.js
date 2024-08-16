@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./Golfer.module.css";
 import { removeGolfer } from "../Util/addteetime";
 import Button from "../UI/Button";

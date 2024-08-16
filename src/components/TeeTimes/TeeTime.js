@@ -1,10 +1,17 @@
-import Golfer from './Golfer';
+import Golfer from "./Golfer";
 import classes from "./TeeTime.module.css";
+import React from "react";
 const TeeTime = (props) => {
   const golfers = props.golfers;
   const teeTime = golfers[0].time;
 
- const names = golfers.map(golfer => <Golfer key={golfer.key} golfer={golfer} editGolferHandler={props.editGolferHandler}/>);
+  const names = golfers.map((golfer) => (
+    <Golfer
+      key={golfer.key}
+      golfer={golfer}
+      editGolferHandler={props.editGolferHandler}
+    />
+  ));
   return (
     <li className={classes.teetime}>
       <div>

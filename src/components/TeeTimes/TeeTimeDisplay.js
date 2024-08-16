@@ -1,3 +1,4 @@
+import React from "react";
 import GolferDisplay from "./GolferDisplay";
 import classes from "./TeeTime.module.css";
 const TeeTime = (props) => {
